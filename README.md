@@ -1,0 +1,1 @@
+JavaRush. Test task на онлайн-стажировку.

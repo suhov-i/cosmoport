@@ -2,14 +2,10 @@ package com.space.service;
 
 import com.space.model.Ship;
 import com.space.repository.ShipRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Calendar;
@@ -18,7 +14,6 @@ import java.util.List;
 @Service
 public class ShipServiceImpl implements ShipService {
     private ShipRepository shipRepository;
-    private static final Logger logger = LoggerFactory.getLogger(ShipServiceImpl.class);
 
     @Autowired
     public void setShipRepository(ShipRepository shipRepository) {

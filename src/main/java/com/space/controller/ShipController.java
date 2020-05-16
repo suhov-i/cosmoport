@@ -4,8 +4,6 @@ import com.space.model.Ship;
 import com.space.model.ShipType;
 import com.space.service.ShipService;
 import com.space.specification.ShipSpecification;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -21,7 +19,6 @@ import java.util.List;
 @RequestMapping("/rest")
 public class ShipController {
     private ShipService shipService;
-    private static final Logger logger = LoggerFactory.getLogger(ShipController.class);
 
     @Autowired
     public void setShipService(ShipService shipService) {
@@ -106,11 +103,13 @@ public class ShipController {
         if (isShipRequestIsEmpty(ship))
             //no changes in DB if request is empty, just returns existing ship
             return new ResponseEntity<>(shipService.getShip(validId), HttpStatus.OK);
+        //requests with null fields should be in 200 status so checking only empty name
         if (validId == 0 || (ship.getName() != null && ship.getName().isEmpty()))
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         if (!shipService.isExist(validId))
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 
+        //building ship to update using existing one in DB
         Ship shipToUpdate = shipService.getShip(validId);
         if (ship.getName() != null)
             shipToUpdate.setName(ship.getName());
@@ -126,6 +125,7 @@ public class ShipController {
             shipToUpdate.setUsed(ship.getUsed());
         if (ship.getCrewSize() != null)
             shipToUpdate.setCrewSize(ship.getCrewSize());
+        //checking if this ship we built from request is valid
         if (!isNewShipValid(shipToUpdate))
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 

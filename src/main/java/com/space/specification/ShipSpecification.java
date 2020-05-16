@@ -3,7 +3,6 @@ package com.space.specification;
 import com.space.model.Ship;
 import com.space.model.ShipType;
 import org.springframework.data.jpa.domain.Specification;
-
 import java.util.Date;
 
 //class for building Ship specification to filter entities
@@ -30,8 +29,8 @@ public class ShipSpecification {
     public static Specification<Ship> shipsByRating(Double min, Double max) {
         return (r, q, cb) -> {
             if (min == null && max == null) return null;
-            if (min == null)                return cb.lessThanOrEqualTo(r.get("rating"), max);
-            if (max == null)                return cb.greaterThanOrEqualTo(r.get("rating"), min);
+            if (min == null) return cb.lessThanOrEqualTo(r.get("rating"), max);
+            if (max == null) return cb.greaterThanOrEqualTo(r.get("rating"), min);
             return cb.between(r.get("rating"), min, max);
         };
     }
@@ -68,7 +67,7 @@ public class ShipSpecification {
     public static Specification<Ship> shipsByUsage(Boolean isUsed) {
         return (r, q, cb) -> {
             if (isUsed == null) return null;
-            if (isUsed)         return cb.isTrue(r.get("isUsed"));
+            if (isUsed) return cb.isTrue(r.get("isUsed"));
             else return cb.isFalse(r.get("isUsed"));
         };
     }
@@ -76,8 +75,8 @@ public class ShipSpecification {
     public static Specification<Ship> shipsBySpeed(Double min, Double max) {
         return (r, q, cb) -> {
             if (min == null && max == null) return null;
-            if (min == null)                return cb.lessThanOrEqualTo(r.get("speed"), max);
-            if (max == null)                return cb.greaterThanOrEqualTo(r.get("speed"), min);
+            if (min == null) return cb.lessThanOrEqualTo(r.get("speed"), max);
+            if (max == null) return cb.greaterThanOrEqualTo(r.get("speed"), min);
             return cb.between(r.get("speed"), min, max);
         };
     }
@@ -85,8 +84,8 @@ public class ShipSpecification {
     public static Specification<Ship> shipsByCrewSize(Integer min, Integer max) {
         return (root, query, cb) -> {
             if (min == null && max == null) return null;
-            if (min == null)                return cb.lessThanOrEqualTo(root.get("crewSize"), max);
-            if (max == null)                return cb.greaterThanOrEqualTo(root.get("crewSize"), min);
+            if (min == null) return cb.lessThanOrEqualTo(root.get("crewSize"), max);
+            if (max == null) return cb.greaterThanOrEqualTo(root.get("crewSize"), min);
             return cb.between(root.get("crewSize"), min, max);
         };
     }
